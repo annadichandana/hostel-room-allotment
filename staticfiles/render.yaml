@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: hostel-room-allotment
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn hostelallocation.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: hostelallocation.settings
+      - key: PYTHON_VERSION
+        value: 3.13.4
