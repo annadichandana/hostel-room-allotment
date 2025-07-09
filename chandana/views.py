@@ -16,7 +16,7 @@ from django.core.mail import send_mail
 from .forms import ForgotPasswordForm
 from django.contrib.auth import logout
 def base(request):
-    return render(request, "base.html")  
+    return render(request, "index.html")  
 def members(request):
     return render(request, "homepage.html")  
 def admin_dashboard(request):
