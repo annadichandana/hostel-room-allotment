@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Overview</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: #283593;
+            margin-top: 30px;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        img.chart {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #aaa;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Room Allocation Overview</h1>
+    <div class="chart-container">
+        <img class="chart" src="{% url 'room_chart' %}" alt="Room Allocation Chart">
+    </div>
+</body>
+</html>

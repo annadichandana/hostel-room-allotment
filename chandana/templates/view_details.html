@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Info - Hostel Portal</title>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #00b894;
+      --background: #f5f8fa;
+      --text: #2c3e50;
+      --muted: #555;
+      --line: #dfe6e9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 20px 40px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .container {
+      display: flex;
+      padding: 40px;
+      justify-content: space-between;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .section {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 6px;
+    }
+
+    .detail-row {
+      margin-bottom: 16px;
+    }
+
+    .label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .tip-box {
+      margin-top: 30px;
+      padding: 15px 20px;
+      background: #e8fdf5;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      color: #047857;
+      font-size: 15px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>🎓 Student Information</header>
+
+<div class="container">
+  <div class="section">
+    <h2>👤 Personal Details</h2>
+    <div class="detail-row">
+      <div class="label">Name</div>
+      <div class="value">{{ student.name }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Roll Number</div>
+      <div class="value">{{ student.rollno }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Branch</div>
+      <div class="value">{{ student.branch }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Year</div>
+      <div class="value">{{ student.current_year }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Email</div>
+      <div class="value">{{ student.Email }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Phone</div>
+      <div class="value">{{ student.phonenumber }}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🏠 Room Allocation</h2>
+    <div class="detail-row">
+      <div class="label">Room Number</div>
+      <div class="value">
+        {% if allocation %}{{ allocation.room.roomno }}{% else %}Not Allocated{% endif %}
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="label">Allocated On</div>
+      <div class="value">
+        {% if allocation %}{{ allocation.allocated_on|date:"d M, Y" }}{% else %}N/A{% endif %}
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+</body>
+</html>

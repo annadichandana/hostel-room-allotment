@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Hostel Allocation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #eaf0f9, #ffffff);
+      color: #1b2a41;
+    }
+
+    header {
+      background: #1b2a41;
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #324a6d;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .header-center {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-center h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .header-center p {
+      font-size: 14px;
+      color: #dfe6f3;
+      margin: 5px 0 0;
+    }
+
+    .logout-btn {
+      background-color: #e74c3c;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      padding: 40px 60px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      border-left: 6px solid #1b2a41;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 25px rgba(2, 48, 117, 0.3);
+      border-left: 6px solid #022354;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      color: #1b2a41;
+    }
+
+    .card h2 span {
+      font-size: 22px;
+      margin-right: 10px;
+    }
+
+    .card p {
+      color: #444c5c;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-center">
+      <h1>🏠 Hostel Admin Dashboard</h1>
+      <p>Welcome, Admin!</p>
+    </div>
+    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+  </header>
+
+  <div class="dashboard-container">
+
+    <div class="card" onclick="window.location.href='{% url 'view_students' %}'">
+      <h2><span>🎓</span>All Students</h2>
+      <p>View registered students in the hostel system</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='{% url 'view_rooms' %}'">
+      <h2><span>🛏️</span>Room Status</h2>
+      <p>Monitor availability and occupancy of rooms</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='{% url 'add_room' %}'">
+      <h2><span>➕</span>Add Room</h2>
+      <p>Create and manage room capacity for students</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='{% url 'allocate_room' %}'">
+      <h2><span>🧮</span>Allot Rooms</h2>
+      <p>Assign rooms to eligible students based on availability</p>
+    </div>
+    <div class="card" onclick="window.location.href='{% url 'manage_students' %}'">
+        👥 <br> <strong>Add / Edit Students</strong>
+    </div>
+
+    <div class="card" onclick="window.location.href='{% url 'room_overview' %}'">
+      <h2><span>📊</span>Room Overview</h2>
+      <p>Visual summary of bed occupancy by room</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+body {
+    background-image:url("hstl.avif");
+    background-size: cover; 
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+}
+form{
+    padding:10px;
+    box-shadow: 0px 0px 1px 0.2px #f9f8f7;
+}
+.login {
+    position: relative;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    border-color: #6e0617a4;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    font-size: 18px;
+    text-align: center;
+    gap: 30px;
+    border:3px solid white;
+}
+h2{
+    color: #af520f;
+    
+}
+.log input{
+    height: 30px;
+    width: 100%;
+    border: 2px solid #53070797; 
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 20px 5px rgb(195, 200, 209);
+}
+.forgot input{
+    height: 30px;
+    width: 100%;
+    border: 2px solid #53070797; 
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 20px 5px rgb(195, 200, 209);
+}
+.hello input{
+    width: 100%;
+    height: 30px;
+    border: 2px solid #53070797;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 0px 20px 5px rgb(219, 225, 236);
+}
+.log{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    font-weight: bold;
+    color:#a83832;  
+    gap: 10px;
+}
+.forgot{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    font-weight: bold;
+    color:#a83832;  
+    gap: 10px;
+    margin-left: 23px;
+}
+.hello{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    font-weight: bold;
+    color:#a83832;  
+    gap: 10px;
+    margin-left: 7px;
+}
+.forgot label{
+    margin-left: 0px;
+    padding:0px;
+}
+#emailBox {
+    display: none;
+}
+.links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+#but{
+    background-color: rgb(197, 75, 23);
+    border-radius: 15px;
+    width:150px;
+    height:35px;
+    font-weight: 600;
+
+}
+#but:hover{
+    color:rgb(235, 235, 246);
+}
+a:hover{
+    color: rgba(243, 126, 9, 0.943);
+}
+.d1{
+    display:block;
+    text-align: center;
+}
+.d2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

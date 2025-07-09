@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(209, 193, 224);
+}
+.studet{
+    border:5px solid violet;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Registered Students</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e9effd, #f7f9fc);
+      margin: 0;
+      padding: 40px;
+      color: #1b2a41;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #2a2e43;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .filter-bar label {
+      font-weight: 600;
+      margin-right: 10px;
+      color: #324a6d;
+    }
+
+    .filter-bar select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #f0f4fa;
+      color: #1b2a41;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2e5fac;
+      color: #fff;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      font-size: 14px;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8f9fd;
+    }
+
+    tr:hover {
+      background-color: #e0edff;
+      transition: background 0.2s ease;
+    }
+
+    .no-room {
+      color: #e63946;
+      font-style: italic;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-bar label {
+        margin-bottom: 4px;
+      }
+
+      .filter-bar select {
+        width: 100%;
+      }
+
+      table, th, td {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>👩‍🎓 Registered Students</h1>
+
+  <div class="filter-bar">
+    <div>
+      <label for="allocation-status">Allocation Status:</label>
+      <select id="allocation-status" onchange="filterStudents()">
+        <option value="">All</option>
+        <option value="alloted">Allotted</option>
+        <option value="not-alloted">Not Allotted</option>
+      </select>
+    </div>
+    <div>
+      <label for="branch">Branch:</label>
+      <select id="branch" onchange="filterStudents()">
+        <option value="">All</option>
+        <option value="cse">Computer Science and Engineering</option>
+        <option value="ece">Electronics and Communication Engineering</option>
+        <option value="mech">Mechanical Engineering</option>
+        <option value="civil">Civil Engineering</option>
+        <option value="eee">Electrical and Electronic Engineering</option>
+      </select>
+    </div>
+    <div>
+      <label for="year">Year:</label>
+      <select id="year" onchange="filterStudents()">
+        <option value="">All</option>
+        <option value="1">1st year students</option>
+        <option value="2">2nd year students</option>
+        <option value="3">3rd year students</option>
+        <option value="4">4th year students</option>
+        <option value="5">5th year students</option>
+      </select>
+    </div>
+  </div>
+
+  <table id="students-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Branch</th>
+        <th>Year</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Room</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in student_data %}
+      <tr 
+        data-branch="{{ item.branch|lower }}" 
+        data-status="{% if item.room %}alloted{% else %}not-alloted{% endif %}" 
+        data-year="{{ item.year }}">
+        <td>{{ item.name }}</td>
+        <td>{{ item.rollno }}</td>
+        <td>{{ item.branch }}</td>
+        <td>{{ item.year }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.phone }}</td>
+        <td>
+          {% if item.room %}
+            {{ item.room }}
+          {% else %}
+            <span class="no-room">Not Allotted</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <script>
+    function filterStudents() {
+      const allocationStatus = document.getElementById("allocation-status").value;
+      const branch = document.getElementById("branch").value;
+      const year = document.getElementById("year").value;
+      const students = document.querySelectorAll("#students-table tbody tr");
+
+      students.forEach(student => {
+        const studentStatus = student.getAttribute("data-status");
+        const studentBranch = student.getAttribute("data-branch");
+        const studentYear = student.getAttribute("data-year");
+
+        if (
+          (allocationStatus === "" || studentStatus === allocationStatus) &&
+          (branch === "" || studentBranch === branch) &&
+          (year === "" || studentYear === year)
+        ) {
+          student.style.display = "";
+        } else {
+          student.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Students</title>
+  <style>
+    body { font-family: 'Segoe UI'; padding: 30px; background: #f4f6fc; }
+    h1 { color: #283593; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; border: 1px solid #ccc; text-align: center; }
+    th { background: #3f51b5; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .add-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #3949ab;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .edit-link {
+      text-decoration: none;
+      color: #3949ab;
+    }
+  </style>
+</head>
+<body>
+  <h1>📋 Manage Students</h1>
+  <a href="{% url 'add_student' %}" class="add-btn">➕ Add New Student</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Branch</th>
+        <th>Year</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in students %}
+      <tr>
+        <td>{{ s.name }}</td>
+        <td>{{ s.rollno }}</td>
+        <td>{{ s.branch }}</td>
+        <td>{{ s.current_year }}</td>
+        <td><a href="{% url 'edit_student' s.id %}" class="edit-link">✏️ Edit</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

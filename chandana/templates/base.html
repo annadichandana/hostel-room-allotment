@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Hostel Allotment System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #fdfdfd, #f3f6fb);
+      color: #2c3e50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .top-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 30px;
+      border: 3px solid #7c7c7d;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #2c3e50;
+    }
+
+    .description-slider {
+      background-color: #ffffff;
+      border: 1px solid #e6ecf0;
+      border-radius: 12px;
+      padding: 28px 32px;
+      max-width: 800px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      margin-bottom: 40px;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    .description-slider h2 {
+      font-size: 22px;
+      color: #34495e;
+      margin-bottom: 10px;
+    }
+
+    .description-slider p {
+      font-size: 16px;
+      color: #5d6d7e;
+      line-height: 1.6;
+    }
+
+    .next-btn {
+      background: #2ecc71;
+      color: white;
+      font-weight: 600;
+      padding: 12px 26px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .next-btn:hover {
+      background: #27ae60;
+    }
+
+    @media (max-width: 600px) {
+      .top-image {
+        width: 90px;
+        height: 90px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .description-slider {
+        padding: 20px;
+      }
+
+      .description-slider h2 {
+        font-size: 20px;
+      }
+
+      .description-slider p {
+        font-size: 15px;
+      }
+    }
+
+    .fade-leave {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body id="mainBody">
+
+  <img src="{% static 'hstl.jpg' %}" alt="Hostel Icon" class="top-image" />
+
+  <h1>Hostel Allotment System</h1>
+
+  <div class="description-slider" id="slideText">
+    <h2>Seamless Hostel Room Allocation</h2>
+    <p>Our platform ensures hassle-free, accurate, and transparent room allocation for students and admins alike.</p>
+  </div>
+
+  <button class="next-btn" onclick="fadeAndRedirect()">Next →</button>
+
+  <script>
+    const slides = [
+      {
+        title: "Seamless Hostel Room Allocation",
+        desc: "Our platform ensures hassle-free, accurate, and transparent room allocation for students and admins alike."
+      },
+      {
+        title: "Real-Time Bed Management",
+        desc: "Keep track of vacant and occupied beds in real-time with powerful visualizations and smart updates."
+      },
+      {
+        title: "Student Dashboard",
+        desc: "Students can view their room details, roommates, 3D room views, and get useful campus tips daily."
+      },
+      {
+        title: "Admin Control Panel",
+        desc: "Admins can manage student records, rooms, perform allocations, and monitor data via intuitive charts."
+      },
+      {
+        title: "Modern, Secure, and Scalable",
+        desc: "Built using Django, this system is scalable, user-friendly, and secure for modern campus needs."
+      }
+    ];
+
+    let currentIndex = 0;
+    const slideText = document.getElementById("slideText");
+
+    function showNextSlide() {
+      slideText.classList.add("fade-out");
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        slideText.innerHTML = `
+          <h2>${slides[currentIndex].title}</h2>
+          <p>${slides[currentIndex].desc}</p>
+        `;
+        slideText.classList.remove("fade-out");
+      }, 600);
+    }
+
+    setInterval(showNextSlide, 10000); 
+
+    function fadeAndRedirect() {
+      const body = document.getElementById("mainBody");
+      body.classList.add("fade-leave");
+      setTimeout(() => {
+        window.location.href = "{% url 'members' %}";
+      }, 800);
+    }
+  </script>
+
+</body>
+</html>

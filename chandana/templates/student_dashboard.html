@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Details - Hostel Portal</title>
+  <style>
+    :root {
+      --sidebar-width: 220px;
+      --primary: #2c3e50;
+      --highlight: #1abc9c;
+      --background: #f4f7f9;
+      --surface: #ffffff;
+      --text: #333;
+      --muted: #777;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--background);
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--primary);
+      color: white;
+      transition: width 0.3s ease;
+      overflow: hidden;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 22px;
+      background: #1a252f;
+      margin: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+      transition: background 0.3s;
+    }
+
+    .sidebar ul li:hover {
+      background: var(--highlight);
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+
+    .main {
+      flex: 1;
+      padding: 30px 50px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar h1 {
+      font-size: 28px;
+      color: var(--primary);
+    }
+
+    .details-container {
+      background: var(--surface);
+      padding: 30px 40px;
+      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .details-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--primary);
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 12px;
+      margin-bottom: 25px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px 40px;
+    }
+
+    .field-label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .field-value {
+      font-size: 16px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .tip {
+      margin-top: 30px;
+      padding: 18px 22px;
+      background: #e0f7fa;
+      color: #006064;
+      border-left: 5px solid #00bcd4;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    @media screen and (max-width: 768px) {
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>🎓 Student Panel</h2>
+    <ul>
+      <li><a href="{% url 'view_details' %}">View Details</a></li>
+      <li><a href="{% url 'room_info' %}">Room Details</a></li>
+      <li><a href="#">3D Room View</a></li>
+      <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="top-bar">
+      <h1>Student Dashboard</h1>
+    </div>
+
+    <div class="details-container">
+      <div class="details-title">👤 Personal & Room Info</div>
+      <div class="details-grid">
+        <div>
+          <div class="field-label">Name</div>
+          <div class="field-value">{{ student.name }}</div>
+        </div>
+        <div>
+          <div class="field-label">Roll Number</div>
+          <div class="field-value">{{ student.rollno }}</div>
+        </div>
+        <div>
+          <div class="field-label">Branch</div>
+          <div class="field-value">{{ student.branch }}</div>
+        </div>
+        <div>
+          <div class="field-label">Admission Year</div>
+          <div class="field-value">{{ student.admission_year }}</div>
+        </div>
+        <div>
+          <div class="field-label">Email</div>
+          <div class="field-value">{{ student.Email }}</div>
+        </div>
+        <div>
+          <div class="field-label">Phone</div>
+          <div class="field-value">{{ student.phonenumber }}</div>
+        </div>
+        <div>
+          <div class="field-label">Room No</div>
+          <div class="field-value">{% if allocation %}{{ allocation.room.roomno }}{% else %}Not Allocated{% endif %}</div>
+        </div>
+        <div>
+          <div class="field-label">Allocated On</div>
+          <div class="field-value">{% if allocation %}{{ allocation.allocated_on|date:"d M, Y" }}{% else %}N/A{% endif %}</div>
+        </div>
+      </div>
+
+      
+      <div style="text-align: right; margin-top: 30px;">
+        <a href="{% url 'edit_profile' %}">
+          <button style="padding: 10px 20px; background-color: #1abc9c; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+            ✏️ Edit Profile
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 <strong>Tip of the Day:</strong> {{ tip_of_the_day|default:"Stay productive and keep learning!" }}
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Info</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            background-color: white;
+            padding: 25px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2e5a88;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-block {
+            margin-bottom: 25px;
+        }
+
+        .info-block strong {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2e5a88;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Room Details</h2>
+        {% if room %}
+            <div class="info-block">
+                <strong>Your Room Number:</strong> {{ room.roomno }}
+            </div>
+
+            <div class="info-block">
+                <strong>Your Roommates:</strong>
+                {% if roommates %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S. No</th>
+                                <th>Name</th>
+                                <th>Roll Number</th>
+                                <th>Department</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rm in roommates %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ rm.student.name }}</td>
+                                    <td>{{ rm.student.rollno }}</td>
+                                    <td>{{ rm.student.branch }}</td>
+                                    <td>{{ rm.student.Email }}</td>
+                                    <td>{{rm.student.phonenumber}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No roommates allocated yet.</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>You have not been allocated a room yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

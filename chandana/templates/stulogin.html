@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Smart Hostel</title>
+  <link rel="icon" href="{% static 'icons.webp' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-panel {
+      width: 50%;
+      background-image: url("{% static 'stud.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      color: white;
+      animation: slideInLeft 1.2s ease;
+    }
+
+    .left-panel h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    .left-panel p {
+      font-style: italic;
+      margin-top: 10px;
+      color: #eee;
+    }
+
+    .right-panel {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f9f9f9;
+      animation: slideInRight 1.2s ease;
+    }
+
+    .login-card {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      transition: 0.3s ease;
+    }
+
+    .login-card h2 {
+      color: #af520f;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .login-card label {
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #af520f77;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .login-card button {
+      background-color: #af520f;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-card button:hover {
+      background-color: #943f09;
+    }
+
+    .login-card .links {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .login-card .links a {
+      color: #af520f;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* 🎯 Message Styling */
+    .messages {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .alert {
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .alert.success {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 4px solid #28a745;
+    }
+
+    .alert.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 4px solid #dc3545;
+    }
+
+    .alert.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border-left: 4px solid #ffc107;
+    }
+
+    .alert.info {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      border-left: 4px solid #17a2b8;
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-panel, .right-panel {
+        width: 100%;
+        height: 50%;
+      }
+
+      .left-panel {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    
+    <div class="left-panel">
+      <h1>Welcome to Smart Hostel</h1>
+      <p>"Where comfort meets technology – Seamless room allocation starts here."</p>
+    </div>
+
+    <div class="right-panel">
+      
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="login-card">
+        <h2>{{ role|capfirst }} Login</h2>
+        <form method="POST" action="{% url 'login' %}?role={{ role }}">
+          {% csrf_token %}
+          <label for="user">Username:</label>
+          <input type="text" id="user" name="username" placeholder="Registered Email" required>
+
+          <label for="pass">Password:</label>
+          <input type="password" id="pass" name="password" placeholder="Enter your password" required>
+          
+          <label for="pass">Hallticket No:</label>
+          <input type="text" id="pass" name="password" placeholder="Hallticket No" required>
+          <button type="submit">Login</button>
+
+          <div class="links">
+            <a href="{% url 'forgot' %}">Get Login Details or Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

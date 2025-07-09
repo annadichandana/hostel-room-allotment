@@ -1,0 +1,144 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Room Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #cce7ff, #b4cefa); 
+      padding: 40px;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      color: white;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h2::before {
+      content: "🏨 ";
+    }
+
+    table {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: white;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.6s ease;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #282ea5; 
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f4f8ff;
+    }
+
+    tr:hover {
+      background-color: #e3f2fd;
+      transition: all 0.3s ease;
+    }
+
+    .status-occupied {
+      color: #d32f2f;
+      font-weight: bold;
+    }
+
+    .status-partial {
+      color: #f9a825;
+      font-weight: bold;
+    }
+
+    .status-empty {
+      color: #388e3c;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        font-size: 13px;
+        padding: 10px 8px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Room Details</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Room No 🏠</th>
+        <th>Occupied ✅</th>
+        <th>Remaining 🛏️</th>
+        <th>Total Beds 🔢</th>
+        <th>Status 📊</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for room in rooms %}
+      <tr>
+        <td>{{ room.sno }}</td>
+        <td>{{ room.roomno }}</td>
+        <td>{{ room.occupied }}</td>
+        <td>{{ room.remaining }}</td>
+        <td>{{ room.total }}</td>
+        <td>
+          {% if room.remaining == 0 %}
+            <span class="status-occupied">✅ Fully Occupied</span>
+          {% elif room.occupied == 0 %}
+            <span class="status-empty">⬜ Empty</span>
+          {% else %}
+            <span class="status-partial">🟡 Partially Occupied</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

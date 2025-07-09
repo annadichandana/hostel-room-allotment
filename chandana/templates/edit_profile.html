@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8fbff;
+      padding: 40px;
+    }
+
+    .form-box {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 10px;
+      background-color: #2e86de;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .back {
+      margin-top: 15px;
+      display: block;
+      text-align: center;
+      color: #2e86de;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <h2>Edit Profile</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+      <label>Name</label>
+      <input type="text" name="name" value="{{ student.name }}" required>
+
+      <label>Roll Number</label>
+      <input type="text" name="rollno" value="{{ student.rollno }}" required>
+
+      <label>Branch</label>
+      <select name="branch" required>
+        <option value="CSE" {% if student.branch == "CSE" %}selected{% endif %}>CSE</option>
+        <option value="ECE" {% if student.branch == "ECE" %}selected{% endif %}>ECE</option>
+        <option value="EEE" {% if student.branch == "EEE" %}selected{% endif %}>EEE</option>
+        <option value="MECH" {% if student.branch == "MECH" %}selected{% endif %}>MECH</option>
+        <option value="CIVIL" {% if student.branch == "CIVIL" %}selected{% endif %}>CIVIL</option>
+      </select>
+
+      <label>Admission Year</label>
+      <input type="number" name="admission_year" value="{{ student.admission_year }}" required>
+
+      <label>Email</label>
+      <input type="email" name="email" value="{{ student.Email }}" required>
+
+      <label>Phone Number</label>
+      <input type="text" name="phone" value="{{ student.phonenumber }}" required>
+
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <a class="back" href="{% url 'student_dashboard' %}">← Back to Dashboard</a>
+  </div>
+
+</body>
+</html>

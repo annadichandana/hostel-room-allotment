@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% if student_id %}Edit{% else %}Add{% endif %} Student</title>
+  <style>
+    body { font-family: 'Segoe UI'; background: #e8f0fe; padding: 40px; }
+    .form-container {
+      background: white;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label, input, select {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    input[type="submit"] {
+      background: #283593;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background: #1a237e;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>{% if student_id %}✏️ Edit{% else %}➕ Add{% endif %} Student</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="{% if student_id %}Update{% else %}Add{% endif %} Student">
+    </form>
+  </div>
+</body>
+</html>
