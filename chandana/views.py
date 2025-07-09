@@ -5,6 +5,7 @@ from .models import student, rooms, RoomAllocation
 from django.utils import timezone
 import matplotlib.pyplot as plt
 import matplotlib
+import os
 from .forms import studentform
 matplotlib.use('Agg')
 import numpy as np
@@ -248,6 +249,7 @@ def room_overview(request):
     } for idx, room in enumerate(all_rooms)]
     return render(request, 'roomdetvisual.html', {'rooms': room_data})
 def room_chart(request):
+    os.environ['MPLCONFIGDIR'] = '/tmp/mpl_cache'
     all_rooms = rooms.objects.all().order_by('roomno')
     labels = [room.roomno for room in all_rooms]
     occupied = [room.occupied for room in all_rooms]
