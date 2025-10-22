@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/annadichandana/hostel-room-allotment.git'
@@ -12,9 +11,9 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 bat '''
-                python -m venv venv
+                "C:\\Users\\annad\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m venv venv
                 call venv\\Scripts\\activate
-                pip install --upgrade pip
+                python -m pip install --upgrade pip
                 pip install -r requirements.txt
                 '''
             }
@@ -42,18 +41,15 @@ pipeline {
             steps {
                 bat '''
                 call venv\\Scripts\\activate
-                waitress-serve --listen=0.0.0.0:8000 hostel_allocation.wsgi:application
+                waitress-serve --listen=0.0.0.0:8000 hostel.wsgi:application
                 '''
             }
         }
     }
 
     post {
-        success {
-            echo '✅ Deployment successful!'
-        }
         failure {
-            echo '❌ Deployment failed. Check logs.'
+            echo "❌ Deployment failed. Check logs."
         }
     }
 }
